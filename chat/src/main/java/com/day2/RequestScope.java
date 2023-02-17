@@ -30,6 +30,9 @@ public class RequestScope extends HttpServlet {
 	    rmap.put("mem_id", "tomato");
 	    req.setAttribute("rmap",rmap);
 		RequestDispatcher view = req.getRequestDispatcher("b.jsp");
+		//day2/a로 요청한 경우 doGet메소드를 경유하게 되고 이 요청을 받았을 때 톰캣으로부터 서블릿이 생성되고
+		//그 서블릿은 요청 객체와 응답 객체를 갖게 되는데 b.jsp페이지에서 응답이 나갈 때 파라미터에 요청객체 원본이
+		//전달되니까 화면에서도 그 값을 공유할 수 있다.
 	 view.forward(req, resp);
 	}
 
