@@ -7,7 +7,7 @@
 	</select>	  	
 	<select id="getBookMember" parameterType="java.util.HashMap" resultType="map">
 SELECT mem_no, mem_id, mem_pw, mem_name
-  FROM book_member
+  FROM member
  WHERE mem_id = #{mem_id}
     OR mem_pw = #{mem_pw} 
 	</select>	  	
