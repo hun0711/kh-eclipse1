@@ -1,0 +1,15 @@
+yarn init --force
+
+yarn add axios
+
+yarn add react-router-dom
+
+yarn add react-bootstrap
+
+yarn add styled-components
+
+yarn add @fortawesome/fontawesome-free
+
+yarn add bootstrap
+
+yarn add firebase
