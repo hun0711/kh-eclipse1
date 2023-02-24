@@ -55,6 +55,7 @@ public class DeptController implements Action {
      af.setRedirect(isRedirect);
      return af;
 	}
+	
  public ActionForward getDeptList() {
 	 //res.sendRedirect();
 	 return null;

@@ -50,4 +50,21 @@
   spring maven -빌드 -> pom.xml파일 등록
   
   web.xml 문서를 수정하면 반드시 서버를 내렸다가 다시 가동할것 !주의!
+  톰캣 서버를 기동하면 가장 먼저 읽는다
+  이 문서를 읽으면 st1확장자에 대해 알고 있다.
+  st1으로 들어오는 모든 요청은 FrontMVC1.java가 인터셉트 한다.
+  이 요청은 브라우저의 주소창에 하게 되고
+  이 요청의 URL을 읽어서 upmu배열에 담는다
+  dept/getDeptList - select 처리 - 화면 유지 - forward 페이지 이동 - 조회결과는 request에 담음
+  dept/deptInsert - insert 처리 - 유지 필요 없음 - res.sendRedirect(페이지이름) -> path담음
+  dept/deptUpdate - update 처리 - 유지 필요 없음 - res.sendRedirec(페이지이름) -> path담음
+  dpet/deptDelete - delete 처리 - 유지 필요 없음 - res.sendRedirec(페이지이름) -> path담음
+  path 관리하는 클래스명은 ActionForward이다.
+  이 클래스에는 전변이 두 개 있다.
+  path - 페이지이름
+  isRedirect - ture : res.sendRedirect
+               false : res.RequestDispatcher view = req.getRequestDispatcher()
+                       view.forward(req,res)
+ 위 내용에 대한 설정은 어디서 ? -> frontMVC1의 doService에서 했음!
+ 
  -->
