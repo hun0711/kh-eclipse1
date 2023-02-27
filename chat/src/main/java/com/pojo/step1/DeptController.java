@@ -16,6 +16,7 @@ public class DeptController implements Action {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
      ActionForward af = new ActionForward();
+     //FrontMVC1 클래스에서 request 객체에 저장된 배열 꺼내기
      String upmu[] = (String[])req.getAttribute("upmu");
      DeptLogic deptLogic = new DeptLogic();
      String path = null;
@@ -25,7 +26,9 @@ public class DeptController implements Action {
      if("getDeptList".equals(upmu[1])) {
         List<Map<String,Object>> deptList =	deptLogic.getDeptList();
        req.setAttribute("deptList", deptList);
+       //응답페이지 이름 결정
         path = "getDeptList.jsp";
+        //redirect로 할지 forward로 할지를 결정함
        isRedirect = false; //false이면 forward - 요청이 유지된다. - 주소창은 그대로인데 페이지는 바뀐다.
      }
      else if("jsonDeptList".equals(upmu[1])) {

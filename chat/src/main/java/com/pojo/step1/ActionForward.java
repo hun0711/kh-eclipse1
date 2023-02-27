@@ -6,6 +6,7 @@ public class ActionForward {
 	//or res.sendRedirect("dept/getDeptList.kh") - 서블릿이 요청을 받음 - mvc패턴인가?
 	//jsp가 요청을 받는 것이 왜 문제인가? - WAS마다 명명규칙이 다르다. 그래서 인스턴스화를 할 수 없다.
 	//또한 인스턴스화를 한다 하더라도 request와 response 객체를 주입받지 못하는 문제가 있다. -> mime type을 못 정한다!!
+	//*mime type을 결정하는건 응답객체 response이다 (doGet이나 doPost 메소드의 파라미터로 주입된다)
 	
   private String path = null; //응답페이지 이름 또는 서블릿의 이름
   //sendRedirect로 페이지를 이동할 것인지 아니면

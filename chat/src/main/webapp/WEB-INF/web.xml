@@ -45,6 +45,10 @@
 
 </web-app>
 <!-- 
+  context-param과 init-param 차이
+  context-param은 서버가 기동될 때 한 번 읽으면 서버가 종료될 때까지 계속 기억함
+  init-param은 서블릿이 요청될 때마다 새로 읽는다
+  
   Deployeement Desciptor
   배치서술자
   spring maven -빌드 -> pom.xml파일 등록
@@ -62,7 +66,7 @@
   path 관리하는 클래스명은 ActionForward이다.
   이 클래스에는 전변이 두 개 있다.
   path - 페이지이름
-  isRedirect - ture : res.sendRedirect
+  isRedirect - true : res.sendRedirect
                false : res.RequestDispatcher view = req.getRequestDispatcher()
                        view.forward(req,res)
  위 내용에 대한 설정은 어디서 ? -> frontMVC1의 doService에서 했음!
