@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/easyUI_common.jsp" %>   
 <%
-	String pbm_no = request.getParameter("b_no");
-	String pbm_pw = request.getParameter("b_pw");
+	String pbm_no = request.getParameter("bm_no");
+	String pbm_pw = request.getParameter("bm_pw");
 	
 %>	  
 <html>

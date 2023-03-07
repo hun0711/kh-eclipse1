@@ -5,11 +5,17 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+//Spring 부트에서는 RequestParam 대신 해줌, Model, ModelMap
+//사용자가 입력한 값을 Map에 담아준다
+//담을 Map은 컨트롤 계층에서 bind 메소드 호출 시 파라미터를 이용해서 원본 주소번지를 받아온다.
+//그리고 그 안에 담는다.
 //Model, ModelMap
 public class HashMapBinder {
 	HttpServletRequest req = null;
    public HashMapBinder() {}
+   //생성자 파라미터에 요청객체(지변)가 필요한 이유는 뭐죠 ??
    public HashMapBinder(HttpServletRequest req) {
+	   //생성자의 1역할 - 전변의 초기화
 	   this.req = req;
    }
    //어떤 페이지 어떤 상황에서 공통코드 재사용 가능하게 할 것인가?

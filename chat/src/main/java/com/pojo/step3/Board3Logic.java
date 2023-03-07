@@ -8,7 +8,7 @@ public class Board3Logic {
 	Logger logger = Logger.getLogger(Board3Logic.class);
 	Board3Dao boardDao = new Board3Dao();
 	public List<Map<String, Object>> boardList(Map<String, Object> pMap) {
-		logger.info("boardList호출 : "+pMap);
+		logger.info("boardList호출 : "+ pMap);
 		List<Map<String, Object>> bList = null;
 		bList = boardDao.boardList(pMap);
 		return bList;
@@ -26,7 +26,7 @@ public class Board3Logic {
 		}
 		//댓글쓰기야?
 		if(bm_group > 0) {
-			boardDao.bStepUpdate(pMap);
+			boardDao.bStepUpdate(pMap); //bm_group = 8, bm_step>1
 			pMap.put("bm_pos", Integer.parseInt(pMap.get("bm_pos").toString())+1);
 			pMap.put("bm_step", Integer.parseInt(pMap.get("bm_step").toString())+1);
 		}
@@ -39,6 +39,18 @@ public class Board3Logic {
 			pMap.put("bm_step", 0);
 		}
 		result = boardDao.boardInsert(pMap);
+		return result;
+	}
+	public int boardUpdate(Map<String,Object> pMap) {
+		logger.info("boardUpdate호출 : "+ pMap);
+        int result = 0;
+	    result = boardDao.boardMUpdate(pMap);
+        return result;
+	}
+	public int boardDelete(Map<String,Object> pMap) {
+		logger.info("boardUpdate호출 : "+ pMap);
+		int result = 0;
+		result = boardDao.boardMDelete(pMap);
 		return result;
 	}
 }

@@ -166,6 +166,7 @@
         		<td><%=1%></td>
         		<td>
 <!-- 너 댓글이니? -->     	
+
 <a href="javascript:boardDetail('<%=rMap.get("BM_NO") %>')" style="text-decoration:none;color:#000000">        		
         		<%=rMap.get("BM_TITLE")%>
 </a>        		

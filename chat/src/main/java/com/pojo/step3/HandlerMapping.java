@@ -43,7 +43,7 @@ public class HandlerMapping {
 				  return(String)obj;
 			  }
 		  }
-		  else if("jsonBoarList".equals(upmu[1])) { //json포맷 나감 - application/json
+		  else if("jsonBoardList".equals(upmu[1])) { //json포맷 나감 - application/json
 			  obj = controller.jsonBoardList(req, res);
 			  //리턴타입이 ModelAndView
 			  if(obj instanceof ModelAndView) {

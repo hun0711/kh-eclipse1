@@ -5,16 +5,12 @@
 // jsp에서 자바코드(스크립틀릿)와 html코드의 작성 위치는 문제가 되지 않는다.
 // 왜냐하면 어차피 jsp는 서버에서 실행되고 그 결과가 text로 출력되는 것이므로 
 // html과 처리 시점이 완전 다르니까...
-	boolean isOk = false;
-	if(request.getParameter("isOk")!=null){
-		isOk = Boolean.parseBoolean(request.getParameter("isOk"));
-	}
 	List<Map<String,Object>> boardList = 
 			(List<Map<String,Object>>)request.getAttribute("bList");
 	int size = 0;
 	if(boardList!=null){
 		size = boardList.size();
-	}		
+	}
 %>    
 <!DOCTYPE html>
 <html>
@@ -39,9 +35,10 @@
 		cb_value = user_combo;
 		tb_value = $("#tb_search").val();//사용자가 입력한 조건 검색 문자열
 		console.log("콤보박스 값: "+ cb_value+", 사용자가 입력한 키워드: "+tb_value);
-		location.href = "./boardList.st3?cb_search="+cb_value+"&tb_search="+tb_value+"&b_date="+v_date;
+		location.href = "./boardList.st3?cb_search="+cb_value+"&tb_search="+tb_value+"&bm_reg="+v_date;
 	}	
 	function boardDetail(bm_no){
+		location.href = "./boardDetail.st3?bm_no="+bm_no;
 	}
     function fileDown(fname){
 		location.href="downLoad.jsp?bs_file="+fname;
@@ -143,24 +140,22 @@
             data-options="rownumbers:true,singleSelect:true,toolbar:'#tb',footer:'#pn_board'">
         <thead>
             <tr>
-                <th data-options="field:'B_NO',width:60, align:'center', hidden:'true'">글번호</th>
-                <th data-options="field:'B_TITLE',width:350">제목</th>
-                <th data-options="field:'B_WRITER',width:80,align:'center'">작성자</th>
-                <th data-options="field:'B_DATE',width:100,align:'center'">작성일</th>
+                <th data-options="field:'BM_NO',width:60, align:'center', hidden:'true'">글번호</th>
+                <th data-options="field:'BM_TITLE',width:350">제목</th>
+                <th data-options="field:'BM_WRITER',width:80,align:'center'">작성자</th>
+                <th data-options="field:'BM_REG',width:100,align:'center'">작성일</th>
                 <th data-options="field:'BS_FILE',width:170">첨부파일</th>
-                <th data-options="field:'B_HIT',width:60,align:'center'">조회수</th>
+                <th data-options="field:'BM_HIT',width:60,align:'center'">조회수</th>
             </tr>
         </thead>
         <tbody>
 <%
 	if(size==0){
-		if(isOk){	
 %> 	
 <script>
 	$.messager.alert('Info','조회결과가 없습니다.');
 </script>
 <%
-		}
 	}
 	else if(size>0){
 		for(int i=0;i<size;i++){
@@ -171,16 +166,27 @@
         		<td><%=1%></td>
         		<td>
 <!-- 너 댓글이니? -->     	
-<a href="javascript:boardDetail('1')" style="text-decoration:none;color:#000000">        		
-        		<%="글제목"%>
+<%
+ String imgPath = path + "..\\images\\"; 
+ if(Integer.parseInt(rMap.get("BM_POS").toString())>0) {
+	 for(int j=0; j<Integer.parseInt(rMap.get("BM_POS").toString()); j++){
+		 out.print("&nbsp;&nbsp;&nbsp;");
+	 }
+%>
+ <img src="<%=imgPath %>reply.gif"/>
+<%
+		}
+%>
+<a href="javascript:boardDetail('<%=rMap.get("BM_NO") %>')" style="text-decoration:none;color:#000000">        		
+        		<%=rMap.get("BM_TITLE")%>
 </a>        		
         		</td>
         		<td><%=rMap.get("BM_WRITER")%></td>
-        		<td><%="2023-03-06"%></td>
+        		<td><%=rMap.get("BM_REG")%></td>
         		<td>
         		<%="첨부파일 없음"%>	
         		</td>
-        		<td><%=0%></td>
+        		<td><%=rMap.get("BM_HIT")%></td>
         	</tr>
 <%
 		}// end of for
@@ -197,9 +203,9 @@
                                      -->
         <select class="easyui-combobox" id="cb_search" name="cb_search" panelHeight="auto" style="width:100px">
             <option selected>선택</option>
-            <option value="b_title">제목</option>
-            <option value="b_content">내용</option>
-            <option value="b_writer">작성자</option>
+            <option value="bm_title">제목</option>
+            <option value="bm_content">내용</option>
+            <option value="bm_writer">작성자</option>
         </select>
         <input id="tb_search" name="tb_search" class="easyui-textbox" style="width:320px">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -232,28 +238,31 @@
 %>
 <!-- 글입력 화면 추가 시작 -->
     <div id="dlg_boardIns" footer="#tb_boardIns" class="easyui-dialog" title="글쓰기" data-options="modal:true,closed:true" style="width:600px;height:400px;padding:10px">
-        <form id="f_boardIns" method="post" enctype="multipart/form-data" action="./boardInsert.pj">
-        <!-- <form id="f_boardIns" method="get" action="./boardInsert.pj">  -->
-	    <input type="hidden" id="b_no" name="b_no" value="0">
-	    <input type="hidden" id="b_group" name="b_group" value="0">
-	    <input type="hidden" id="b_pos" name="b_pos" value="0">
-	    <input type="hidden" id="b_step" name="b_step" value="0">
+    <!--    <form id="f_boardIns" method="post" enctype="multipart/form-data" action="./boardInsert.pj">--> 
+        <form id="f_boardIns" method="get" action="./boardInsert.st3">
+        <!-- hidden 속성은 화면에 보이지 않음. 개발자가 필요로 하는 값
+        등록 부분과 수정 부분이 동시에 발생할 수도 있다 - 트랜잭션 처리가 필요함
+        틀랜잭션 처리가 필요한 경우의 메소드 설계 고려 --> 
+	    <input type="hidden" id="bm_no" name="bm_no" value="0">
+	    <input type="hidden" id="bm_group" name="bm_group" value="0">
+	    <input type="hidden" id="bm_pos" name="bm_pos" value="0"><!-- post방식으로 해야함 -->
+	    <input type="hidden" id="bm_step" name="bm_step" value="0">
         	<table>
         		<tr>
         			<td width="100px">제&nbsp;&nbsp;&nbsp;목</td>
-        			<td width="500px"><input id="b_title" name="b_title" class="easyui-textbox" data-options="width:'250px'" required></td>
+        			<td width="500px"><input id="bm_title" name="bm_title" class="easyui-textbox" data-options="width:'250px'" required></td>
         		</tr>
         		<tr>
         			<td width="100px">작&nbsp;성&nbsp;자</td>
-        			<td width="500px"><input id="b_writer" name="b_writer" class="easyui-textbox" data-options="width:'150px'" required></td>
+        			<td width="500px"><input id="bm_writer" name="bm_writer" class="easyui-textbox" data-options="width:'150px'" required></td>
         		</tr>
         		<tr>
         			<td width="100px">내&nbsp;&nbsp;&nbsp;용</td>
-        			<td width="500px"><input id="b_content" name="b_content" class="easyui-textbox" data-options="multiline:'true',width:'350px', height:'90px'" required></td>
+        			<td width="500px"><input id="bm_content" name="bm_content" class="easyui-textbox" data-options="multiline:'true',width:'350px', height:'90px'" required></td>
         		</tr>
         		<tr>
         			<td width="100px">비&nbsp;&nbsp;&nbsp;번</td>
-        			<td width="500px"><input id="b_pw" name="b_pw" class="easyui-textbox" data-options="width:'100px'" required></td>
+        			<td width="500px"><input id="bm_pw" name="bm_pw" class="easyui-textbox" data-options="width:'100px'" required></td>
         		</tr>
         		<tr>
         			<td width="100px">첨부파일</td>
