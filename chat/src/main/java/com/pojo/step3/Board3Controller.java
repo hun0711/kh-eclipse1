@@ -43,7 +43,7 @@ public class Board3Controller implements Controller3 {
 		Map<String, Object> pMap = new HashMap<>();
 		HashMapBinder hmb = new HashMapBinder(req);
 		hmb.bind(pMap);
-		bList = boardLogic.boardList(pMap);
+		bList = boardLogic.boardDetail(pMap);
 		logger.info(bList);
 		req.setAttribute("bList", bList);
 		return "forward:board3/boardDetail";
@@ -62,7 +62,7 @@ public class Board3Controller implements Controller3 {
 		int result = 0;
 		Map<String, Object> pMap = new HashMap<>();
 		HashMapBinder hmb = new HashMapBinder(req);
-		hmb.bind(pMap);
+		hmb.multiBind(pMap);
 		result = boardLogic.boardInsert(pMap);
 		String path = "";
 		if (result == 1) {

@@ -13,6 +13,14 @@ public class Board3Logic {
 		bList = boardDao.boardList(pMap);
 		return bList;
 	}
+	public List<Map<String, Object>> boardDetail(Map<String, Object> pMap) {
+		logger.info("boardDetail호출 : "+ pMap);
+		List<Map<String, Object>> bList = null;
+		bList = boardDao.boardList(pMap);
+        int bm_no = Integer.parseInt(pMap.get("bm_no").toString());
+		boardDao.hitCount(bm_no);
+		return bList;
+	}
 	public int boardInsert(Map<String, Object> pMap) {
 		logger.info("boardInsert호출 : "+pMap);
 		int result = 0;
@@ -39,6 +47,15 @@ public class Board3Logic {
 			pMap.put("bm_step", 0);
 		}
 		result = boardDao.boardInsert(pMap);
+		//첨부 파일이 존재하니?
+		if(pMap.get("bs_file")!=null && pMap.get("bs_file").toString().length()>1) {
+			pMap.put("bm_no", bm_no);
+			//현재 첨부 파일은 하나만 담는 것으로 가정하고 처리함
+			pMap.put("bs_seq", 1);
+			int result2 = 0;
+			result2 = boardDao.boardSInsert(pMap);
+			logger.info(result2);//1이면 등록 성공 - 첨부파일 추가 성공임
+		}
 		return result;
 	}
 	public int boardUpdate(Map<String,Object> pMap) {

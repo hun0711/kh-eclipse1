@@ -117,6 +117,30 @@ public class Board3Dao {
 		return result;
 	}//end of boardMUpdate
 	
+	/*********************************
+	 * 글 조회수 수정하기 구현 
+	 * @param int - 글 번호 가져오기
+	 *********************************/
+	
+	public int hitCount(int bm_no) {
+		int result =0;
+		SqlSessionFactory sqlSessionFactory = null;
+		SqlSession sqlSession = null;
+		try { 
+			sqlSessionFactory = mcf.getSqlSessionFactory();
+			sqlSession = sqlSessionFactory.openSession();
+			result = sqlSession.update("hitCount", bm_no);
+			if(result == 1) {
+				sqlSession.commit();
+			}
+			logger.info(result);//
+		} catch (Exception e) {
+			e.printStackTrace();
+		}			
+		return result;
+	}//end of hitCount
+	
+	
 	public int boardMDelete(Map<String, Object> pMap) {
 		int result =0;
 		SqlSessionFactory sqlSessionFactory = null;
@@ -138,4 +162,24 @@ public class Board3Dao {
 		}			
 		return result;
 	}//end of boardMUpdate
+	public int boardSInsert(Map<String, Object> pMap) {
+		logger.info("boardInsert 호출");
+		int result = 0;
+		SqlSessionFactory sqlSessionFactory = null;
+		SqlSession sqlSession = null;
+		try { 
+			sqlSessionFactory = mcf.getSqlSessionFactory();
+			sqlSession = sqlSessionFactory.openSession();
+			//insert이지만 update로 하는 이유는 리턴타입이 Object이기때문이다
+			//메소드이름은 상관없이 해당 쿼리문을 id로 찾기 때문이다.
+			result = sqlSession.update("boardSInsert", pMap);
+			if(result == 1) {
+				sqlSession.commit();
+			}
+			logger.info(result);//
+		} catch (Exception e) {
+			e.printStackTrace();
+		}				
+		return result;
+	}
 }

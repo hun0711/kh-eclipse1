@@ -22,7 +22,7 @@
 	let g_no=0;//그리드에서 선택이 바뀔때 마다 변경된 값이 저장됨.
 	let tb_value;//사용자가 입력한 문자열 담기
 	let isOk = false;
-	function dlgIns_save(){
+	function dlgIns_save(){ 
 		//폼 전송 처리함.
 		$("#f_boardIns").submit();
 	}
@@ -228,8 +228,8 @@
 %>
 <!-- 글입력 화면 추가 시작 -->
     <div id="dlg_boardIns" footer="#tb_boardIns" class="easyui-dialog" title="글쓰기" data-options="modal:true,closed:true" style="width:600px;height:400px;padding:10px">
-    <!--    <form id="f_boardIns" method="post" enctype="multipart/form-data" action="./boardInsert.pj">--> 
-        <form id="f_boardIns" method="get" action="./boardInsert.st3">
+   <form id="f_boardIns" method="post" enctype="multipart/form-data" action="./boardInsert.st3"> 
+      <!-- <form id="f_boardIns" method="get" action="./boardInsert.st3"> -->
         <!-- hidden 속성은 화면에 보이지 않음. 개발자가 필요로 하는 값
         등록 부분과 수정 부분이 동시에 발생할 수도 있다 - 트랜잭션 처리가 필요함
         틀랜잭션 처리가 필요한 경우의 메소드 설계 고려 --> 
@@ -258,7 +258,7 @@
         			<td width="100px">첨부파일</td>
         			<td width="500px"><input id="bs_file" name="bs_file" class="easyui-filebox" data-options="width:'350px'"></td>
         		</tr>
-        	</table>
+        	</table>  
         </form>
     </div>
     <!-- 다이얼로그 화면 버튼 추가 시작 -->
