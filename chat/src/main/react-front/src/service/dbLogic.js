@@ -5,7 +5,7 @@ export const jsonDeptList = (params) => {
     try {
       const response = axios({
         method: "get",
-        url: process.env.REACT_APP_CHAT_IP + "dept/jsonDeptList.st1",
+        url: process.env.REACT_APP_CHAT221228_IP + "dept/jsonDeptList.st1",
         params: params,
       });
       resolve(response);
@@ -14,4 +14,5 @@ export const jsonDeptList = (params) => {
     }
   });
 };
-/* rafce 단축키 - arrow function export default */
+
+/* rafce 단축키 - arrow function export default*/

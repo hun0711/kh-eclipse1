@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import Bottom from '../include/Bottom'
 import Header from '../include/Header'
 
-const EmpPage = ({authLogic}) => {
-	const navigate = useNavigate()
+const BoardPage = ({authLogic}) => {
+   //Single Page Applicaition 컨벤션을 위한 훅
+   const navigate = useNavigate()
    const onLogout = () => {
 		console.log('HomePage onLogout 호출')
 		authLogic.logout()
@@ -17,13 +18,15 @@ const EmpPage = ({authLogic}) => {
 			}
 		})
 	})
-  return (
-	<React.Fragment>
-	  <Header onLogout={onLogout}/>
-	  사원관리시스템
-	  <Bottom />
-	</React.Fragment>
+
+  
+   return (
+    <>
+    <Header onLogout={onLogout} />
+      BoardPage
+    <Bottom/>
+    </>
   )
 }
 
-export default EmpPage
+export default BoardPage;
