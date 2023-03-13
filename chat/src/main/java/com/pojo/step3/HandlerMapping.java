@@ -72,6 +72,25 @@ public class HandlerMapping {
 			  if(obj instanceof String) {
 				  return(String)obj;
 			  }
+		  	  
+		  }
+		  else if("imageUpload".equals(upmu[1])) { //리액트 quill editor 이미지 추가
+			  logger.info("imageUpload호출 ==> boolean : " + obj instanceof String);
+			  //리턴타입이 String
+			  obj = controller.imageUpload(req, res);
+			  if(obj instanceof String) {
+				  return(String)obj;
+			  }
+			  
+		  }
+		  else if("imageGet".equals(upmu[1])) { //글입력 - 새글쓰기와 댓글쓰기
+			  //리턴타입이 String
+			  obj = controller.imageGet(req, res);
+			  logger.info("boardInsert호출 ==> boolean : " + obj instanceof String);
+			  if(obj instanceof String) {
+				  return(String)obj;
+			  }
+			  
 		  }
 		  else if("boardUpdate".equals(upmu[1])) { //글수정 - 첨부파일 수정 유무 고려하기
 			  //리턴타입이 String

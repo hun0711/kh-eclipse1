@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import AuthLogic from "./service/authLogic";
 import firebaseApp from "./service/firebase";
+import "react-quill/dist/quill.snow.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 //import SampleApp from "./SampleApp";
 //공통코드 -> service>authLogic.js -> import외부 js재사용가능함 -> export default 클래스명 ->  module
@@ -22,7 +23,7 @@ root.render(
       {/* App컴포넌트를 렌더링할 때 속성자리에 주소번지를 넘길 수 있다 - props */}
       {/* 태그와 JS섞어쓰기 가능함 -  좌중괄호 우중괄호 */}
       {<App authLogic={authLogic} />}
-    {/*  <SampleApp /> */}
+      {/*  <SampleApp /> */}
     </BrowserRouter>
   </>
 );

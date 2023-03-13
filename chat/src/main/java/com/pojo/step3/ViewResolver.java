@@ -15,7 +15,14 @@ public class ViewResolver {
    public ViewResolver(HttpServletRequest req, HttpServletResponse res, String[] pageMove) //요청받은걸 응답할때 pageMove 필요함
    throws ServletException, IOException
    {
-	   String path = pageMove[1];
+	   String path = "";
+	   path = pageMove[1];
+	   if(pageMove.length == 1) {
+         return;
+	   }
+	   else {
+		   path = pageMove[1];
+	   }
 		//webapp 바라본다.
 		if ("redirect".equals(pageMove[0])) {
 			res.sendRedirect(path);
